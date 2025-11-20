@@ -1,0 +1,482 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    padding: 5px;
+    overflow: hidden;
+}
+
+ul, li{
+    list-style: none;
+}
+
+li{
+    background-color: rgb(240, 240, 240);;
+    text-align: center;
+    border-radius: 5px;
+}
+
+h3{
+    font-size: 16px;
+}
+
+#cabecera{
+    padding: 5px;
+    text-align: center;
+}
+
+#boton{
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+#lista{
+    position: relative;
+}
+
+#boton-opciones{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding: 7px;
+    font-size: 16px;
+    width: 140px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    margin-top: -16px;
+    cursor: pointer;
+    z-index: 1;
+    position: relative;
+}
+#opciones{
+    display: none;
+    width: 180px;
+    margin-left: -24px;
+    border-radius: 5px;
+    position: absolute; 
+    top: 100%;
+    z-index: 1000;
+    background-color: white;
+}
+
+#boton-salir{
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px;
+    font-size: 16px;
+    border-bottom: 2px solid white;
+}
+
+#boton-salir:hover{
+    background-color: rgb(220, 220, 220);
+    /*box-shadow: 0px 0px 4px 1px gray;*/
+}
+
+#boton-baja{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px;
+    font-size: 16px;
+}
+
+#boton-baja:hover{
+    background-color: rgb(220, 220, 220);
+    /*box-shadow: 0px 0px 4px 1px gray;*/
+}
+
+#boton-añadir-tarea{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 40px;
+    width: 175px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: rgb(240, 240, 240);
+    border-color: rgb(233, 233, 233);
+    cursor: pointer;
+    color: black;
+}
+
+#boton-añadir-tarea img{
+    height: 30px;
+    width: 30px;
+}
+
+#boton-añadir-tarea:hover{
+    box-shadow: 0px 0px 4px 1px gray;
+}
+
+#pop-up{
+    height: auto;
+    width: 300px;
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    background-color: white;
+    padding: 10px;
+    padding-left: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px 1px black;
+    text-align: left;
+}
+
+form{
+    width: 100%;
+}
+
+input{
+    width: 200px;
+    height: 30px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    padding-left: 10px;
+}
+
+select{
+    width: 200px;
+    height: 30px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+#seleccion-tipo{
+    width: auto;
+}
+
+option{
+    width: 300px;
+    height: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+textarea {
+    width: 200px;
+    height: 100px;
+    min-height: 50px;
+    min-width: 100px;
+    max-width: 200px;
+    max-height: 100px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+#cancelar{
+    width: 40%;
+    padding: 5px;
+    font-size: 15px;
+    background-color: rgb(255, 125, 125);
+    color: black;
+    border-color: red;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+#guardar-tarea{
+    width: 40%;
+    padding: 5px;
+    font-size: 15px;
+    background-color: rgb(125, 125, 255);
+    color: black;
+    border-color: rgb(0, 0, 255);
+    margin-bottom: 10px;
+}
+
+#contenido{
+    display: flex;
+    gap: 12px;
+    padding: 5px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#pendiente, #en-proceso, #terminado{
+    flex: 1;
+    min-width: 0;
+    width: 33%;
+    max-width: 33%;
+    height: 465px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px 1px gray;
+    overflow: hidden;
+}
+
+#panel-1, #panel-2, #panel-3{
+    height: 396px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+    border: 2px dashed transparent;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+/* Estilos para el scroll */
+#panel-1::-webkit-scrollbar,
+#panel-2::-webkit-scrollbar,
+#panel-3::-webkit-scrollbar {
+    width: 8px;
+}
+
+#panel-1::-webkit-scrollbar-track,
+#panel-2::-webkit-scrollbar-track,
+#panel-3::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#panel-1::-webkit-scrollbar-thumb,
+#panel-2::-webkit-scrollbar-thumb,
+#panel-3::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+#panel-1::-webkit-scrollbar-thumb:hover,
+#panel-2::-webkit-scrollbar-thumb:hover,
+#panel-3::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/*tarea*/
+#contenido div div div {
+    height: auto;
+    margin: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 5px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: move;
+    transition: all 0.3s ease;
+    border: 1px solid #ccc;
+    max-width: 100%;
+    width: auto;
+}
+
+#contenido div div div:hover {
+    box-shadow: 0px 0px 4px 1px gray;
+}
+
+#contenido div div div[draggable="true"]:hover {
+    cursor: grab;
+}
+
+#contenido div div div[draggable="true"]:active {
+    cursor: grabbing;
+}
+
+#pendiente, #en-proceso, #terminado {
+    min-height: 200px;
+    transition: background-color 0.3s ease;
+    border: 2px dashed transparent;
+    padding: 10px;
+}
+
+#pendiente:hover, #en-proceso:hover, #terminado:hover {
+    border-color: #ccc;
+}
+
+#contenido div div div p {
+    margin: 5px 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+#nombre, #descripcion {
+    text-align: center;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin: 5px 0;
+}
+
+#error{
+    color: red;
+    display: none;
+}
+
+/*boton tarea*/
+#contenido div div button{
+    padding: 5px;
+    font-size: 15px;
+    background-color: rgb(255, 63, 63);
+    border-color: red;
+}
+
+/*RESPOSNSIVE*/
+@media (max-width: 768px) {
+    h3{
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    p{
+        font-size: 13px;
+    }
+
+    h3{
+        font-size: 12px;
+    }
+
+    #pendiente, #en-proceso, #terminado{
+        height: 500px;
+    }
+
+    #panel-1, #panel-2, #panel-3{
+        height: 450px;
+        width: 120px;
+        margin-left: -12px;
+    }
+
+    #boton-añadir-tarea{
+        background-color: rgb(240, 240, 240);
+        border-color: rgb(233, 233, 233);
+        color: black;
+    }
+
+    #boton-eliminar{
+        font-size: 5px;
+        width: 70px;
+        text-align: center;
+        background-color: rgb(255, 125, 125);
+        border-color: red;
+        color: black;
+    }
+
+    #cancelar{
+    background-color: rgb(255, 125, 125);
+    color: black;
+    border-color: red;
+}
+
+    #guardar-tarea{
+        background-color: rgb(125, 125, 255);
+        color: black;
+        border-color: rgb(0, 0, 255);
+    }
+
+    #pop-up{
+        height: auto;
+        width: 250px;
+        display: none;
+        position: fixed;
+        top: 25%;
+        left: 17%;
+        background-color: white;
+        padding: 10px;
+        padding-left: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 8px 1px black;
+        text-align: left;
+    }
+
+    .tarea.dragging {
+        transform: scale(0.98) rotate(2deg) !important;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+        z-index: 1000;
+        transition: all 0.2s ease;
+    }
+
+    #panel-1.drag-over,
+    #panel-2.drag-over, 
+    #panel-3.drag-over {
+        border: 2px dashed rgb(112, 112, 255) !important;
+        background-color: rgba(112, 112, 255, 0.05) !important;
+        transition: all 0.3s ease;
+    }
+
+    #contenido div div div:hover {
+        box-shadow: 0px 0px 4px 1px gray;
+    }
+
+    #contenido div div div[draggable="true"]:hover {
+        cursor: grab;
+    }
+
+    #contenido div div div[draggable="true"]:active {
+        cursor: grabbing;
+    }
+
+    #pendiente, #en-proceso, #terminado {
+        min-height: 200px;
+        transition: background-color 0.3s ease;
+        border: 2px dashed transparent;
+        padding: 10px;
+    }
+
+    #pendiente:hover, #en-proceso:hover, #terminado:hover {
+        border-color: #ccc;
+    }
+
+    .tarea {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: pan-y;
+        transition: all 0.2s ease;
+        position: relative;
+    }
+    
+    .tarea:active {
+        transform: scale(0.95);
+    }
+    
+    /* Indicador visual de que es arrastrable */
+    .tarea::before {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-size: 14px;
+        color: #999;
+        opacity: 0.7;
+    }
+
+    #contenido div div div {
+        height: auto;
+        margin: 5px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        padding: 5px;
+        padding-bottom: 10px;
+        border-radius: 5px;
+        text-align: center;
+        cursor: move;
+        transition: all 0.3s ease;
+        border: 1px solid #ccc;
+        max-width: 100%;
+        width: auto;
+    }
+
+    #seleccion-tipo{
+        width: 100%;
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,121 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    padding: 5px;
+    overflow: hidden;
+    align-items: center;
+    align-content: center;
+}
+
+hr{
+    border: 1px solid rgb(112, 112, 255);
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#registro{
+    width: 350px;
+    margin: auto;
+    margin-top: 110px;
+    box-shadow: 0px 0px 4px 1px gray;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#registro p{
+    padding-top: 10px;
+    text-align: center;
+}
+
+form{
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    text-align: center;
+}
+
+#error{
+    font-size: 14px;
+    display: block;
+    text-align: center;
+    color: red;
+}
+
+input{
+    width: 180px;
+    height: 30px;
+    margin-bottom: 5px;
+    border: 1px solid #989898;
+    border-radius: 4px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 5px;
+}
+
+#caja-mostar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+    padding: 5px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: black;
+}
+
+#email{
+    padding-right: 40px;
+}
+
+#contraseña{
+    padding-right: 40px;
+}
+
+#ojo{
+    margin-top: -43px;
+    margin-left: 190px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    width: 30px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+#boton-aceptar{
+    width: 150px;
+    padding: 5px;
+    font-size: 15px;
+    background-color: rgb(112, 112, 255);
+    border-color: rgb(0, 0, 255);
+    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 480px) {
+    #boton-aceptar{
+        background-color: rgb(112, 112, 255);
+        border-color: rgb(0, 0, 255);
+        color: white;
+    }
+}

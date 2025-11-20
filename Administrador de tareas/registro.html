@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador de tareas - Registro</title>
+    <link rel="shortcut icon" href="imagenes/iconno_tarea.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/estilo-registro.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- MOVILES -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="ADT">
+
+    <!-- Para iOS -->
+    <link rel="apple-touch-icon" href="imagenes/iconno_tarea.png">
+
+    <!-- Para Android -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- SERVICE WORKER SCRIPT -->
+    <script>
+        // Detectar cuando la app puede ser instalada
+        let deferredPrompt;
+        const installButton = document.createElement('button');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevenir que el navegador muestre el prompt automáticamente
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Mostrar botón de instalación (opcional)
+        console.log('App puede ser instalada');
+        
+        // Opcional: Mostrar un botón de instalación
+        installButton.textContent = '📱 Instalar App';
+        installButton.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        `;
+        document.body.appendChild(installButton);
+        
+        installButton.addEventListener('click', () => {
+            installButton.style.display = 'none';
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(choiceResult => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('Usuario aceptó instalar la app');
+            }
+            deferredPrompt = null;
+            });
+        });
+        });
+
+        // Registrar Service Worker
+        if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('Service Worker registrado');
+            })
+            .catch(error => {
+                console.log('Error al registrar Service Worker:', error);
+            });
+        });
+        }
+    </script>
+</head>
+<body>
+    <div id="registro">
+        <h1>Regístrate</h1>
+        <hr>
+        <form id="formulario">
+            <p id="error"></p>
+            <input type="text" id="email" placeholder="Email">
+            <br>
+            <div id="caja-contraseña">
+                <input type="password" id="contraseña" placeholder="Contraseña" src="imagenes/ojo_cerrado.png"><!-- required -->
+                <img id="ojo" src="imagenes/ojo_cerrado.png" alt="img_ojo">
+            </div>
+            <br>
+            <button type="submit" id="boton-aceptar">Aceptar</button>
+        </form>
+        <hr>
+        <p>¿Ya estás registrado? <a href="index.html">Iniciar sesión</a></p>
+    </div>
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGWNyj1Gxfe6RwxdBIVE2SKD72wQMBCW4",
+            authDomain: "administrador-de-tareas-b4c1f.firebaseapp.com",
+            projectId: "administrador-de-tareas-b4c1f",
+            storageBucket: "administrador-de-tareas-b4c1f.firebasestorage.app",
+            messagingSenderId: "252266911176",
+            appId: "1:252266911176:web:a0edb7175e85ab82c59cfd",
+            measurementId: "G-1EJXZFQVGV"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+    <script src="js/registro.js"></script> <!--type="module" ponerlo si utilizo config.js-->
+</body>
+</html>

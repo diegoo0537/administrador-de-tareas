@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador de tareas</title>
+    <link rel="shortcut icon" href="imagenes/iconno_tarea.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/estilo-app.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- MOVILES -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="ADT">
+
+    <!-- Para iOS -->
+    <link rel="apple-touch-icon" href="imagenes/iconno_tarea.png">
+
+    <!-- Para Android -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- SERVICE WORKER SCRIPT -->
+    <script>
+        // Detectar cuando la app puede ser instalada
+        let deferredPrompt;
+        const installButton = document.createElement('button');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevenir que el navegador muestre el prompt automáticamente
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Mostrar botón de instalación (opcional)
+        console.log('App puede ser instalada');
+        
+        // Opcional: Mostrar un botón de instalación
+        installButton.textContent = '📱 Instalar App';
+        installButton.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        `;
+        document.body.appendChild(installButton);
+        
+        installButton.addEventListener('click', () => {
+            installButton.style.display = 'none';
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(choiceResult => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('Usuario aceptó instalar la app');
+            }
+            deferredPrompt = null;
+            });
+        });
+        });
+
+        // Registrar Service Worker
+        if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('Service Worker registrado');
+            })
+            .catch(error => {
+                console.log('Error al registrar Service Worker:', error);
+            });
+        });
+        }
+    </script>
+</head>
+<body>
+    <!--<i class="material-icons">add</i> -->
+    <div id="cabecera">
+        <h1>Lista de tareas</h1>
+    </div>
+    <hr>
+    <div id="boton">
+        <button id="boton-añadir-tarea">
+            <img src="imagenes/añadir-tarea.png" alt="imagen-añadir">
+            Añadir tarea
+        </button>
+        <ul id="lista">
+            <li id="boton-opciones">
+                Opciones
+                <img id="img-flecha" src="imagenes/flecha-derecha.png" alt="imagen-flecha">
+            </li>
+            <div id="opciones">
+                <li id="boton-salir">
+                        Salir
+                        <img src="imagenes/imagen_salir.png" alt="imagen-salir">
+                </li>
+                <li id="boton-baja">
+                        Darse de baja
+                        <img src="imagenes/darse_baja.png" alt="imagen-darse-baja">
+                </li>
+            </div>
+        </ul>
+    </div>
+    <div id="contenido">
+        <div id="pendiente">
+            <h3>PENDIENTE</h3>
+            <hr>
+            <div id="panel-1"></div>
+        </div>
+        <div id="en-proceso">
+            <h3>EN PROCESO</h3>
+            <hr>
+            <div id="panel-2"></div>
+        </div>
+        <div id="terminado">
+            <h3>TERMINADO</h3>
+            <hr>
+            <div id="panel-3"></div>
+        </div>
+    </div>
+    <div id="pop-up">
+        <form>
+            <p>Nombre:</p>
+            <input type="text" id="nombre-tarea" placeholder="Nombre de la tarea">
+            <p>Tipo:</p>
+            <select id="tipo-tarea">
+                <option value="Pendiente">Pendiente</option>
+                <option value="En proceso">En proceso</option>
+                <option value="Terminado">Terminado</option>
+            </select>
+            <p>Descripcion:</p>
+            <textarea id="descripcion-tarea" placeholder="Descripción..."></textarea>
+            <p id="error"></p>
+            <br>
+            <button id="cancelar">Cancelar</button>
+            <button id="guardar-tarea">Añadir tarea</button>
+        </form>
+    </div>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGWNyj1Gxfe6RwxdBIVE2SKD72wQMBCW4",
+            authDomain: "administrador-de-tareas-b4c1f.firebaseapp.com",
+            projectId: "administrador-de-tareas-b4c1f",
+            storageBucket: "administrador-de-tareas-b4c1f.firebasestorage.app",
+            messagingSenderId: "252266911176",
+            appId: "1:252266911176:web:a0edb7175e85ab82c59cfd",
+            measurementId: "G-1EJXZFQVGV"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+    <script src="js/login.js"></script> <!--type="module" ponerlo si utilizo config.js-->
+    <script src="js/app.js"></script>
+    <!--<script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGWNyj1Gxfe6RwxdBIVE2SKD72wQMBCW4",
+            authDomain: "administrador-de-tareas-b4c1f.firebaseapp.com",
+            projectId: "administrador-de-tareas-b4c1f",
+            storageBucket: "administrador-de-tareas-b4c1f.firebasestorage.app",
+            messagingSenderId: "252266911176",
+            appId: "1:252266911176:web:a0edb7175e85ab82c59cfd",
+            measurementId: "G-1EJXZFQVGV"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>-->
+</body>
+</html>
